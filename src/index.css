@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.overflow-y-auto::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+  }
+  
+  
+  
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    background-color:rgb(207, 201, 201); /* Color of the thumb */
+    border-radius: 4px; /* Rounded corners of the thumb */
+  }
+  
+  .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color of the thumb on hover */
+  }
+ 
