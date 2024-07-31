@@ -147,7 +147,7 @@ const Category = () => {
     {
       name: 'Category Image',
       selector: 'photo',
-      cell: row => <img src={row.photo} alt="Category" className="w-16 h-16 mt-2" />,
+      cell: row => <img src={row.photo} alt="Category" className="w-14 h-14 mb-2 mt-2" />,
     },
     {
       name: 'Name',
@@ -232,15 +232,24 @@ const Category = () => {
             data={categories}
             progressPending={loading}
             pagination
+            paginationPerPage={5}
             highlightOnHover
+            customStyles={{
+              headRow: {
+                style: {
+                  fontSize: "15px",
+                  fontWeight: "bold",
+                },
+              },
+            }}
           />
         </div>
         {showDeleteDialog && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-              <h3 className="text-lg font-semibold">Confirm Delete</h3>
+          <div className="fixed inset-0 flex items-center justify-center">
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-100">
+              <h3 className="text-lg font-semibold text-center">Confirm Delete</h3>
               <p>Are you sure you want to delete this category?</p>
-              <div className="mt-4 flex justify-end gap-2">
+              <div className="mt-4 flex justify-center gap-2">
                 <button onClick={confirmDelete} className="bg-red-500 text-white py-2 px-4 rounded-md">Delete</button>
                 <button onClick={cancelDelete} className="bg-gray-500 text-white py-2 px-4 rounded-md">Cancel</button>
               </div>

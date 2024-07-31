@@ -4,14 +4,25 @@ import './App.css';
 import SideBar from './Componets/SideBar';
 import DashBoard from './Componets/DashBoard';
 import Category from './CategorySetup/Category';
+import ProductAdd from './ProductSetup/ProductAdd';
+import ProductList from './ProductSetup/ProductList';
+import User from './Pages/User';
+import Authentication from './Componets/Authentication';
+import ProtectedRoute from './Componets/ProtectedRoute';
 
 function App() {
   return (
     <div>
      <BrowserRouter>
       <Routes>
-      <Route path="/" element={<DashBoard><SideBar/></DashBoard>} />
-      <Route path='/category' element={<Category/>}/>
+        <Route path='/' element={<Authentication/>}/>
+      <Route path="/dashboard" element={<ProtectedRoute><DashBoard><SideBar/></DashBoard></ProtectedRoute>} />
+      <Route path='/category' element={<ProtectedRoute><Category/></ProtectedRoute>}/>
+      <Route path='/product-add' element={<ProtectedRoute><ProductAdd/></ProtectedRoute>}/>
+      <Route path='/product-list' element={<ProtectedRoute><ProductList/></ProtectedRoute>}/>
+      <Route path="/product-edit" element={<ProtectedRoute><ProductAdd /></ProtectedRoute>} />
+      <Route path='/user' element={<User/>}/>
+     
       </Routes>
      </BrowserRouter>
     </div>

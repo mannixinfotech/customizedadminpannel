@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -8,10 +8,12 @@ import CategoryIcon from '@mui/icons-material/Category';
 import DiamondIcon from '@mui/icons-material/Diamond';
 
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+import { useNavigate } from 'react-router-dom';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
   const [isDropdownOpen, setDropdownOpen] = useState({
     tasks: false,
     clients: false,
@@ -35,7 +37,8 @@ const SideBar = () => {
   };
 
   const menuItems = [
-    { label: 'Dashboard', icon: <HomeIcon />, link: '/' },
+    { label: 'Dashboard', icon: <HomeIcon />, link: '/dashboard' },
+    { label: 'User', icon: <AccountCircleIcon />, link: '/user' },
    
    
     { label: 'Order', icon: <ShoppingCartIcon />, link: '/',
@@ -61,11 +64,10 @@ const SideBar = () => {
      },
     { label: 'Product Setup', icon: <DiamondIcon/>, link: '' ,
       submenu: [
-        { label: 'Product Addon' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Product Add' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Product List' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Bulk Import' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Bulk Export' ,icon:<HorizontalRuleIcon />, link: '' },
+        
+        { label: 'Product Add' ,icon:<HorizontalRuleIcon />, link: '/product-add' },
+        { label: 'Product List' ,icon:<HorizontalRuleIcon />, link: '/product-list' },
+        
         { label: 'Product Review' ,icon:<HorizontalRuleIcon />, link: '' },
         
       ],
@@ -88,6 +90,11 @@ const SideBar = () => {
     }
     return false;
   });
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('isAuthenticated');
+    navigate("/", { replace: true });
+  };
 
   return (
     <div
@@ -217,7 +224,7 @@ const SideBar = () => {
                 <div className="absolute right-0 mt-48 bg-white shadow-lg py-2 w-48">
                   <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
                   <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
-                  <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                  <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"  onClick={handleLogout}>Logout</a>
                 </div>
               )}
               <button onClick={lockDropdown} className="focus:outline-none">
