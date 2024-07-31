@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SideBar from "../Componets/SideBar";
+import SideBar from "../Componets/SideBar"
 import axios from "axios";
 import DownloadIcon from "@mui/icons-material/Download";
 import DataTable from "react-data-table-component";
@@ -10,12 +10,14 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const ProductList = () => {
-  const [orders, setOrders] = useState([]);
-  
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +28,8 @@ const ProductList = () => {
     axios
       .get("http://localhost:5000/product/get")
       .then((response) => {
-        setOrders(response.data.data);
+        setProducts(response.data.data);
+        setFilteredProducts(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -40,7 +43,6 @@ const ProductList = () => {
       state: { product: row },
     });
   };
-
 
   const handleDelete = (row) => {
     setDeleteId(row._id);
@@ -68,10 +70,20 @@ const ProductList = () => {
     setDeleteId(null);
   };
 
+  const handleSearch = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+    setFilteredProducts(
+      products.filter((product) =>
+        product.productName.toLowerCase().includes(query)
+      )
+    );
+  };
+
   const columns = [
     {
       name: "SL",
-      selector: (row) => row._id,
+      selector:(row)=>row._id,
       sortable: false,
     },
     {
@@ -82,7 +94,7 @@ const ProductList = () => {
         <img
           src={row.photo}
           alt="Product"
-          className="w-14 h-14 mt-2 mb-2 object-cover "
+          className="w-14 h-14 mt-2 mb-2 object-cover"
         />
       ),
     },
@@ -129,7 +141,7 @@ const ProductList = () => {
 
   return (
     <div>
-      <SideBar />
+      <SideBar/>
       <div className="md:pl-64 pt-14 m-2">
         <div className="flex items-center pt-3 pl-6">
           <img
@@ -137,9 +149,7 @@ const ProductList = () => {
             alt="/allorder.png"
             className="w-6 h-6 mr-2"
           />
-          <p className="font-bold text-lg">
-            Product List
-          </p>
+          <p className="font-bold text-lg">Product List</p>
         </div>
         <div className="p-5">
           <div className="bg-white border border-gray-200 p-3 rounded-lg shadow-md">
@@ -148,9 +158,14 @@ const ProductList = () => {
                 <input
                   type="text"
                   className="form-control p-2 border border-gray-300 rounded-l-md"
-                  placeholder="Search by id"
+                  placeholder="Search by product name"
+                  value={searchQuery}
+                  onChange={handleSearch}
                 />
-                <button className="bg-indigo-500 text-white p-2 px-4 rounded-r-md">
+                <button
+                  onClick={() => setFilteredProducts(products.filter((product) => product.productName.toLowerCase().includes(searchQuery)))}
+                  className="bg-indigo-500 text-white p-2 px-4 rounded-r-md"
+                >
                   Search
                 </button>
               </div>
@@ -168,7 +183,7 @@ const ProductList = () => {
             </div>
             <DataTable
               columns={columns}
-              data={orders}
+              data={filteredProducts}
               progressPending={loading}
               pagination
               paginationPerPage={5}
@@ -187,7 +202,6 @@ const ProductList = () => {
         {showDeleteDialog && (
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-gray-100 p-6 rounded shadow-lg">
-             
               <p>Are you sure you want to delete this product?</p>
               <div className="mt-4 flex space-x-4 justify-center">
                 <button
