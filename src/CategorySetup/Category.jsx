@@ -142,7 +142,7 @@ const Category = () => {
   const columns = [
     {
       name: 'SL',
-      selector: (row, index) => index + 1,
+      selector: (row) => row._id,
     },
     {
       name: 'Category Image',

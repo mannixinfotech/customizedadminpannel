@@ -58,7 +58,7 @@ const User = () => {
     const columns = [
         {
           name: "SL",
-          selector: (row, index) => index + 1,
+          selector: (row) => row._id,
           sortable: false,
         },
        
