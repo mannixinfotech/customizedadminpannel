@@ -43,7 +43,7 @@ const SideBar = () => {
    
     { label: 'Order', icon: <ShoppingCartIcon />, link: '/',
       submenu: [
-        { label: 'All',icon:<HorizontalRuleIcon /> ,link: 'allorder' },
+        { label: 'All',icon:<HorizontalRuleIcon /> ,link: '/all-order' },
         { label: 'Pending' ,icon:<HorizontalRuleIcon />, link: '' },
         { label: 'Confirmed' ,icon:<HorizontalRuleIcon />, link: '' },
         { label: 'Processing' ,icon:<HorizontalRuleIcon />, link: '' },

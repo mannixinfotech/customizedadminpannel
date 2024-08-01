@@ -9,6 +9,7 @@ import ProductList from './ProductSetup/ProductList';
 import User from './Pages/User';
 import Authentication from './Componets/Authentication';
 import ProtectedRoute from './Componets/ProtectedRoute';
+import AllOrder from './Order/AllOrder';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
       <Route path='/product-add' element={<ProtectedRoute><ProductAdd/></ProtectedRoute>}/>
       <Route path='/product-list' element={<ProtectedRoute><ProductList/></ProtectedRoute>}/>
       <Route path="/product-edit" element={<ProtectedRoute><ProductAdd /></ProtectedRoute>} />
-      <Route path='/user' element={<User/>}/>
+      <Route path='/user' element={<ProtectedRoute><User/></ProtectedRoute>}/>
+      <Route path='/all-order' element={<ProtectedRoute><AllOrder/></ProtectedRoute>}/>
      
       </Routes>
      </BrowserRouter>
