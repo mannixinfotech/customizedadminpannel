@@ -44,15 +44,13 @@ const SideBar = () => {
     { label: 'Order', icon: <ShoppingCartIcon />, link: '/',
       submenu: [
         { label: 'All',icon:<HorizontalRuleIcon /> ,link: '/all-order' },
-        { label: 'Pending' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Confirmed' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Processing' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Out For Delivery' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Delivered' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Returned' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Failed To Deliver' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Canceled' ,icon:<HorizontalRuleIcon />, link: '' },
-        { label: 'Scheduled' ,icon:<HorizontalRuleIcon />, link: '' },
+        { label: 'Pending' ,icon:<HorizontalRuleIcon />, link: '/order/pending-order' },
+        { label: 'Confirmed' ,icon:<HorizontalRuleIcon />, link: '/order/confirmed-order' },
+       
+        { label: 'Canceled' ,icon:<HorizontalRuleIcon />, link: '/order/cancel-order' },
+        
+        { label: 'Delivered' ,icon:<HorizontalRuleIcon />, link: '/order/deliver-order' },
+       
       ],
      },
     { label: 'Category Setup', icon: <CategoryIcon />, link: '/',

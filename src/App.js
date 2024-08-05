@@ -10,6 +10,11 @@ import User from './Pages/User';
 import Authentication from './Componets/Authentication';
 import ProtectedRoute from './Componets/ProtectedRoute';
 import AllOrder from './Order/AllOrder';
+import OrderDetails from './Order/OrderDetails';
+import PendingOrder from './Order/PendingOrder';
+import ConfirmOrder from './Order/ConfirmOrder';
+import CancelOrder from './Order/CancelOrder';
+import DelivredOrder from './Order/DelivredOrder';
 
 function App() {
   return (
@@ -25,6 +30,12 @@ function App() {
       <Route path='/user' element={<ProtectedRoute><User/></ProtectedRoute>}/>
       <Route path='/all-order' element={<ProtectedRoute><AllOrder/></ProtectedRoute>}/>
      
+      <Route path='/order-details' element={<ProtectedRoute><OrderDetails/></ProtectedRoute>}/>
+      <Route path='/order-details/:id' element={<ProtectedRoute><OrderDetails/></ProtectedRoute>}/>
+      <Route path='/order/pending-order' element={<ProtectedRoute><PendingOrder/></ProtectedRoute>}/>
+      <Route path='/order/confirmed-order' element={<ProtectedRoute><ConfirmOrder/></ProtectedRoute>}/>
+      <Route path='/order/cancel-order' element={<ProtectedRoute><CancelOrder/></ProtectedRoute>}/>
+      <Route path='/order/deliver-order' element={<ProtectedRoute><DelivredOrder/></ProtectedRoute>}/>
       </Routes>
      </BrowserRouter>
     </div>

@@ -1,18 +1,93 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import { LineChart, useDrawingArea } from "@mui/x-charts";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { styled, Typography } from "@mui/material";
+import axios from "axios";
 
 
 const DashBoard = () => {
+  const [pendingOrder,setPendingOrder] =useState(0);
+  const[delivred,setDelivred]=useState(0);
+  const [CancelOrder,setCancelOrder]=useState(0);
+  const[confirm,setConfirm]=useState(0);
+  const fetchPendingOrder = () => {
+    axios.get("http://localhost:5000/order/pendingStatusOrder")
+      .then((response) => {
+        if (response.data && response.data.data) {
+          setPendingOrder(response.data.data.length);
+        } else {
+          setPendingOrder(0); // Set to 0 if data is not in expected format
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error fetching pending orders!", error);
+        setPendingOrder(0); // Set to 0 in case of error
+      });
+  };
+  useEffect(() => {
+    fetchPendingOrder();
+  }, []);
+  const fetchDeliviredOrder = () => {
+    axios.get("http://localhost:5000/order/DeliveredStatusOrder")
+      .then((response) => {
+        if (response.data && response.data.data) {
+          setDelivred(response.data.data.length);
+        } else {
+          setDelivred(0); // Set to 0 if data is not in expected format
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error fetching pending orders!", error);
+        setPendingOrder(0); // Set to 0 in case of error
+      });
+  };
+  useEffect(() => {
+    fetchDeliviredOrder();
+  }, []);
+  const fetchConfirmOrder = () => {
+    axios.get("http://localhost:5000/order/ConfirmedStatusOrder")
+      .then((response) => {
+        if (response.data && response.data.data) {
+          setConfirm(response.data.data.length);
+        } else {
+          setConfirm(0); // Set to 0 if data is not in expected format
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error fetching pending orders!", error);
+        setConfirm(0); // Set to 0 in case of error
+      });
+  };
+  useEffect(() => {
+    fetchConfirmOrder();
+  }, []);
+  
+
+  const fetchCancelOrder = () => {
+    axios.get("http://localhost:5000/order/CanceledStatusOrder")
+      .then((response) => {
+        if (response.data && response.data.data) {
+          setCancelOrder(response.data.data.length);
+        } else {
+          setCancelOrder(0); // Set to 0 if data is not in expected format
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error fetching pending orders!", error);
+        setCancelOrder(0); // Set to 0 in case of error
+      });
+  };
+  useEffect(() => {
+    fetchCancelOrder();
+  }, []);
+
+ 
   const data = [
-    { value: 5, color: "#006266" },
-    { value: 10, color: "#f5cd79" },
-    { value: 15, color: "#8e24aa" },
-    { value: 20, color: "#00bfa5" },
-    { value: 50, color: "#1e88e5" },
-    { value: 40, color: "#c23616" },
+    { value: pendingOrder, color: "#006266" },
+    { value: confirm, color: "#f5cd79" },
+    { value: delivred, color: "#8e24aa" },
+    { value: CancelOrder, color: "#00bfa5" },
   ];
 
   const StyledText = styled("text")(({ theme }) => ({
@@ -33,12 +108,10 @@ const DashBoard = () => {
   }
 
   const labels = [
-    { color: "#006266", text: "Pending (0)" },
-    { color: "#f5cd79", text: "Ongoing (0)" },
-    { color: "#8e24aa", text: "Delivered (0)" },
-    { color: "#00bfa5", text: "Canceled (0)" },
-    { color: "#1e88e5", text: "Returned (0)" },
-    { color: "#c23616", text: "Failed (0)" },
+    { color: "#006266", text: `Pending (${pendingOrder})` },
+    { color: "#f5cd79", text: `Confirmed (${confirm})` },
+    { color: "#8e24aa", text: `Delivered (${delivred})` },
+    { color: "#00bfa5", text: `Canceled (${CancelOrder})` },
   ];
 
   return (
@@ -74,7 +147,7 @@ const DashBoard = () => {
                     className="w-7 h-7"
                   />
                 </div>
-                <p className="text-2xl font-bold">0</p>
+                <p className="text-2xl font-bold">{pendingOrder}</p>
               </div>
               <div className="bg-white shadow-md rounded-lg p-3 border border-indigo-500">
                 <div className="flex justify-between">
@@ -85,77 +158,32 @@ const DashBoard = () => {
                     className="w-7 h-7"
                   />
                 </div>
-                <p className="text-2xl font-bold">0</p>
+                <p className="text-2xl font-bold">{confirm}</p>
               </div>
               <div className="bg-white shadow-md rounded-lg p-3 border border-indigo-500">
                 <div className="flex justify-between">
-                  <p className="font-semibold">Processing</p>
-                  <img
-                    src="./package.png"
-                    alt="/circular-clock (1).png"
-                    className="w-7 h-7"
-                  />
-                </div>
-                <p className="text-2xl font-bold">0</p>
-              </div>
-              <div className="bg-white shadow-md rounded-lg p-3 border border-indigo-500">
-                <div className="flex justify-between">
-                  <p className="font-semibold">Out of Delivery</p>
-                  <img
-                    src="./delivery-man (3).png"
-                    alt="/circular-clock (1).png"
-                    className="w-7 h-7"
-                  />
-                </div>
-                <p className="text-2xl font-bold">9</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 xl:grid-cols-4 sm:grid-cols-2 gap-4 mt-4">
-              <div className="bg-gray-100 rounded-lg p-3">
-                <div className="flex items-center">
-                  <img
-                    src="./box (1).png"
-                    alt="/box (1).png"
-                    className="w-5 h-5"
-                  />
-                  <p className="ml-2 font-semibold">Delivered</p>
-                  <p className="ml-auto text-green-500 font-bold">1</p>
-                </div>
-              </div>
-              <div className="bg-gray-100 rounded-lg p-3">
-                <div className="flex items-center">
+                  <p className="font-semibold">Canceled</p>
                   <img
                     src="./cancel (1).png"
-                    alt="/box (1).png"
-                    className="w-5 h-5"
+                    alt="/circular-clock (1).png"
+                    className="w-7 h-7"
                   />
-                  <p className="ml-2 font-semibold">Canceled</p>
-                  <p className="ml-auto text-green-500 font-bold">1</p>
                 </div>
+                <p className="text-2xl font-bold">{CancelOrder}</p>
               </div>
-              <div className="bg-gray-100 rounded-lg p-3">
-                <div className="flex items-center">
+              <div className="bg-white shadow-md rounded-lg p-3 border border-indigo-500">
+                <div className="flex justify-between">
+                  <p className="font-semibold">Delivered</p>
                   <img
-                    src="./return-box.png"
-                    alt="/box (1).png"
-                    className="w-5 h-5"
+                    src="./package.png"
+                    alt="./package.png"
+                    className="w-7 h-7"
                   />
-                  <p className="ml-2 font-semibold">Returned</p>
-                  <p className="ml-auto text-green-500 font-bold">1</p>
                 </div>
-              </div>
-              <div className="bg-gray-100 rounded-lg p-3">
-                <div className="flex items-center">
-                  <img
-                    src="./cancel.png"
-                    alt="/box (1).png"
-                    className="w-5 h-5"
-                  />
-                  <p className="ml-2 font-semibold">Failed To Delivered</p>
-                  <p className="ml-auto text-green-500 font-bold">1</p>
-                </div>
+                <p className="text-2xl font-bold">{delivred}</p>
               </div>
             </div>
+            
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
