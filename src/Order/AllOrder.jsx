@@ -205,7 +205,7 @@ const fetchProducts = () => {
               <div className="bg-gray-100 rounded-lg p-3">
                 <div className="flex items-center">
                   <img
-                    src="./box (1).png"
+                    src="./circular-clock (1).png"
                     alt="/box (1).png"
                     className="w-5 h-5"
                   />
@@ -216,7 +216,7 @@ const fetchProducts = () => {
               <div className="bg-gray-100 rounded-lg p-3">
                 <div className="flex items-center">
                   <img
-                    src="./box (1).png"
+                    src="./checked (1).png"
                     alt="/box (1).png"
                     className="w-5 h-5"
                   />
@@ -241,8 +241,8 @@ const fetchProducts = () => {
               <div className="bg-gray-100 rounded-lg p-3">
                 <div className="flex items-center">
                   <img
-                    src="./cancel (1).png"
-                    alt="/box (1).png"
+                    src="./package.png"
+                    alt="/package.png"
                     className="w-5 h-5"
                   />
                   <p className="ml-2 font-semibold">Delivered</p>
