@@ -186,7 +186,7 @@ const ProductList = () => {
               data={filteredProducts}
               progressPending={loading}
               pagination
-              paginationPerPage={5}
+              paginationPerPage={10}
               highlightOnHover
               customStyles={{
                 headRow: {

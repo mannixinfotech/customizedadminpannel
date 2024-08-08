@@ -15,6 +15,7 @@ import PendingOrder from './Order/PendingOrder';
 import ConfirmOrder from './Order/ConfirmOrder';
 import CancelOrder from './Order/CancelOrder';
 import DelivredOrder from './Order/DelivredOrder';
+import SubCategory from './CategorySetup/SubCategory';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/' element={<Authentication/>}/>
       <Route path="/dashboard" element={<ProtectedRoute><DashBoard><SideBar/></DashBoard></ProtectedRoute>} />
       <Route path='/category' element={<ProtectedRoute><Category/></ProtectedRoute>}/>
+      <Route path='/sub-category' element={<ProtectedRoute><SubCategory/></ProtectedRoute>}/>
       <Route path='/product-add' element={<ProtectedRoute><ProductAdd/></ProtectedRoute>}/>
       <Route path='/product-list' element={<ProtectedRoute><ProductList/></ProtectedRoute>}/>
       <Route path="/product-edit" element={<ProtectedRoute><ProductAdd /></ProtectedRoute>} />

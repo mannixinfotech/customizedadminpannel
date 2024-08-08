@@ -10,19 +10,36 @@ const ProductAdd = () => {
   const navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [filteredSubCategories, setFilteredSubCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   const [formData, setFormData] = useState({
     productName: '',
     price: '',
     description: '',
     category: '',
+    subcategoryName:"",
     photo: null,
     photoPreview: null,
   });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Fetch categories
     axios.get('http://localhost:5000/category/get')
       .then(response => setCategories(response.data.data))
+      .catch(error => console.error(error));
+
+    // Fetch subcategories
+    axios.get('http://localhost:5000/sub-category/get')
+      .then(response => {
+        setSubCategories(response.data.data);
+        // Filter subcategories for the selected category if applicable
+        if (formData.category) {
+          filterSubCategories(formData.category);
+        }
+      })
       .catch(error => console.error(error));
 
     if (state && state.product) {
@@ -32,11 +49,33 @@ const ProductAdd = () => {
         price: product.price,
         description: product.description,
         category: product.category,
+        subCategoryName: product.subCategoryName || '',
         photo: null,
         photoPreview: product.photo || '',
       });
+      setSelectedCategory(product.category);
+     
     }
   }, [state]);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      filterSubCategories(selectedCategory);
+    }
+  }, [selectedCategory, subCategories]);
+
+  const filterSubCategories = (category) => {
+    const filtered = subCategories.filter(subCategory => subCategory.category === category);
+    setFilteredSubCategories(filtered);
+    
+    if (state && state.product && filtered.length > 0) {
+      // Ensure the subcategoryName is correctly selected when editing
+      setFormData((prevData) => ({
+        ...prevData,
+        subCategoryName: state.product.subCategoryName || '',
+      }));
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +83,9 @@ const ProductAdd = () => {
       ...formData,
       [name]: value,
     });
+    if (name === 'category') {
+      setSelectedCategory(value);
+    }
   };
 
   const handleFileChange = (e) => {
@@ -69,8 +111,10 @@ const ProductAdd = () => {
     data.append('price', formData.price);
     data.append('description', formData.description);
     data.append('category', formData.category);
-    data.append('photo', formData.photo);
-
+    data.append("subCategoryName",formData.subCategoryName);
+    if (formData.photo) {
+      data.append('photo', formData.photo);
+    }
     setLoading(true);
 
     const request = state && state.product ? 
@@ -96,9 +140,12 @@ const ProductAdd = () => {
       price: '',
       description: '',
       category: '',
+      subCategoryName:"",
       photo: null,
       photoPreview: null,
     });
+    setSelectedCategory('');
+    setFilteredSubCategories([]);
   };
   if (loading) return <p>Loading...</p>;
 
@@ -130,13 +177,33 @@ const ProductAdd = () => {
                   className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus: block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500"
                   required
                 >
-                  <option value="">---Select Branch---</option>
+                  <option value="">---Select Category---</option>
                   {categories.map(category => (
                     <option key={category._id} value={category.categoryName}>
                       {category.categoryName}
                     </option>
                   ))}
                 </select>
+                <div className='pt-3'>
+                <p className="text-left font-semibold">
+                  Sub Category
+                  <span className="text-orange-700">*</span>
+                </p>
+                <select
+                    name="subCategoryName"
+                    value={formData.subCategoryName} 
+                    onChange={handleChange}
+                    className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus: block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500"
+                    
+                  >
+                    <option value="">---Select SubCategory---</option>
+                    {filteredSubCategories.map(subCategory => (
+                      <option key={subCategory._id} value={subCategory.subCategoryName}>
+                        {subCategory.subCategoryName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
               <label
                 htmlFor="productName"

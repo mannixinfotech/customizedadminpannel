@@ -56,6 +56,7 @@ const SideBar = () => {
     { label: 'Category Setup', icon: <CategoryIcon />, link: '/',
       submenu: [
         { label: 'Category' ,icon:<HorizontalRuleIcon />, link: '/category' },
+        { label: 'Sub Category' ,icon:<HorizontalRuleIcon />, link: '/sub-category' },
         
         
       ],
