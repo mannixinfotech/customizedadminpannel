@@ -120,6 +120,10 @@ const fetchProducts = () => {
   }, []);
 
  
+  const handleBillPrint =(id) =>
+    {
+      navigate(`/print-bill/${id}`);
+    }
   
   const handleDownload = (url) => {
     // Fetch the image data
@@ -226,7 +230,7 @@ const fetchProducts = () => {
              <VisibilityIcon className="text-xl border-2  border-indigo-500" />
           </button>
           <button
-           
+            onClick={()=>handleBillPrint(row._id)}
             className="text-red-600 hover:text-red-800"
           >
               <PrintIcon className="text-xl border-2 border-red-600" />

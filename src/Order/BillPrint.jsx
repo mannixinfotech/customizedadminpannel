@@ -37,12 +37,14 @@ const BillPrint = () => {
     <div>
       <SideBar />
       <div className='md:pl-64 pt-14 m-2'>
-        <button
+      <div className='mx-auto text-center mt-12'>
+      <button
           onClick={handlePrint}
           className="bg-indigo-500 text-white p-2 px-4 rounded mb-4"
         >
           Print Bill
         </button>
+      </div>
         <div className='text-center print-container'>
           <p className='font-bold text-2xl'>Make It Yours</p>
           <p className='text-lg pt-2 font-semibold'>
@@ -74,7 +76,7 @@ const BillPrint = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td className="p-2 border-b border-gray-300">3</td>
+                  <td className="p-2 border-b border-gray-300">{order.quantity}</td>
                   <td className="p-2 border-b border-gray-300">
                     <span className="break-all">{order.subCategoryName}</span>
                     <br />
