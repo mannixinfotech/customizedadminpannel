@@ -3,6 +3,16 @@ import SideBar from '../Componets/SideBar';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+
+
+const getCurrentDate = () => {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1; // Months are zero-indexed
+    const year = today.getFullYear();
+  
+    return `${day < 10 ? `0${day}` : day}/${month < 10 ? `0${month}` : month}/${year}`;
+  };
 const BillPrint = () => {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
@@ -58,7 +68,7 @@ const BillPrint = () => {
           <div className='mb-4 mx-auto md:w-[470px] w-[340px] mt-3'>
             <div className='flex justify-between'>
               <p className='font-bold'>Order ID: <span>{order._id}</span></p>
-              <p className='font-medium'>Date: <span>{order.OrderDate}</span></p>
+              <p className='font-medium'>Date: <span>{getCurrentDate()}</span></p>
             </div>
             <p className='font-bold'>Customer Name: <span>{order.fullname}</span></p>
             <p className='font-medium'>Phone:<span>+91 {order.phone}</span></p>
