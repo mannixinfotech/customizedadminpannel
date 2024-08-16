@@ -171,8 +171,8 @@ const fetchProducts = () => {
             <img
               src={row.photo}
               alt="Order"
-              className='w-14 h-14 pt-2 pb-2'
               onClick={() => handleDownload(row.photo)} 
+              className='w-14 h-14 pt-2 pb-2'
               onError={(e) => e.target.src = "./default-image.png"} // Fallback image if photo fails to load
             />
           ) : (
@@ -191,11 +191,13 @@ const fetchProducts = () => {
       name: "Customer Info",
       selector: (row) => row.email,
       sortable: false,
+      minWidth:"200px"
     },
     {
       name: "Payment Mode",
       selector: (row) => row.paymentMode,
       sortable: false,
+      minWidth:"140px"
     },
     
     {
@@ -206,6 +208,7 @@ const fetchProducts = () => {
     {
       name:"Order Date",
       selector:(row)=>row.OrderDate,
+      minWidth:"110px"
     },
    
     
@@ -213,6 +216,7 @@ const fetchProducts = () => {
       name: "Order Status", 
       selector: (row) => row.orderStatus,
       sortable: false,
+      minWidth:"130px",
       cell: (row) => (
         <span className={`status-${row.orderStatus.toLowerCase()}`}>
           {row.orderStatus}
@@ -330,7 +334,7 @@ const fetchProducts = () => {
               </div>
             </div>
             <DataTable
-            className='p-5'
+            className=''
               columns={columns}
               data={filteredProducts}
               progressPending={loading}

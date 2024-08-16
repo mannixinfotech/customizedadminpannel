@@ -132,7 +132,7 @@ const navigate = useNavigate();
     {
       name:"Order Date",
       selector:(row)=>row.OrderDate,
-      minWidth:"120px"
+      minWidth:"110px"
     },
    
     
@@ -140,7 +140,7 @@ const navigate = useNavigate();
       name: "Order Status", 
       selector: (row) => row.orderStatus,
       sortable: false,
-      minWidth:"120px",
+      minWidth:"130px",
       cell: (row) => (
         <span className={`status-${row.orderStatus.toLowerCase()}`}>
           {row.orderStatus}

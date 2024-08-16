@@ -120,7 +120,7 @@ const DashBoard = () => {
       <div className="pt-12 md:pl-64 m-2 ">
         <div className="m-2">
           <p className="text-indigo-500 text-xl font-bold">
-            Welcome, Software.
+            Welcome, Make It Yours
           </p>
           <p className="text-gray-600">
             Monitor your business analytics and statistics
