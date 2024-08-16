@@ -22,8 +22,9 @@ const AllOrder = () => {
   const[delivred,setDelivred]=useState(0);
   const [CancelOrder,setCancelOrder]=useState(0);
   const[confirm,setConfirm]=useState(0);
-
+ 
 const navigate = useNavigate();
+
 const fetchProducts = () => {
   axios
     .get("http://localhost:5000/order/get")
@@ -63,6 +64,7 @@ const fetchProducts = () => {
   useEffect(() => {
     fetchPendingOrder();
   }, []);
+ 
   const fetchDeliviredOrder = () => {
     axios.get("http://localhost:5000/order/DeliveredStatusOrder")
       .then((response) => {
@@ -74,7 +76,7 @@ const fetchProducts = () => {
       })
       .catch((error) => {
         console.error("There was an error fetching pending orders!", error);
-        setPendingOrder(0); // Set to 0 in case of error
+        setDelivred(0); // Set to 0 in case of error
       });
   };
   useEffect(() => {
@@ -119,7 +121,23 @@ const fetchProducts = () => {
 
  
   
-
+  const handleDownload = (url) => {
+    // Fetch the image data
+    axios.get(url, { responseType: 'blob' })
+      .then((response) => {
+        // Create a blob URL
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = url.split('/').pop(); // Set the filename from the URL
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch((error) => {
+        console.error("There was an error downloading the image!", error);
+      });
+  };
 
   const handleSearch = (event) => {
     const query = event.target.value.toLowerCase();
@@ -141,8 +159,38 @@ const fetchProducts = () => {
       sortable: false,
     },
     {
+      name: "logo",
+      selector: (row) => row.photo,
+      cell: (row) => (
+        <div className='flex items-center justify-center'>
+          {row.photo ? (
+            <img
+              src={row.photo}
+              alt="Order"
+              className='w-14 h-14 pt-2 pb-2'
+              onClick={() => handleDownload(row.photo)} 
+              onError={(e) => e.target.src = "./default-image.png"} // Fallback image if photo fails to load
+            />
+          ) : (
+            <span className='text-gray-500'>{row.logoName}</span> // Show logoName if photo is not available
+          )}
+        </div>
+      ),
+    },
+    {
+      name: "Code",
+      selector: (row) => row.subCategoryName,
+      sortable: false,
+    },
+
+    {
       name: "Customer Info",
       selector: (row) => row.email,
+      sortable: false,
+    },
+    {
+      name: "Payment Mode",
+      selector: (row) => row.paymentMode,
       sortable: false,
     },
     
@@ -155,13 +203,15 @@ const fetchProducts = () => {
       name:"Order Date",
       selector:(row)=>row.OrderDate,
     },
+   
+    
     { 
-      name: "Payment Status", 
-      selector: (row) => row.paymentStatus,
+      name: "Order Status", 
+      selector: (row) => row.orderStatus,
       sortable: false,
       cell: (row) => (
-        <span className={`status-${row.paymentStatus.toLowerCase()}`}>
-          {row.paymentStatus}
+        <span className={`status-${row.orderStatus.toLowerCase()}`}>
+          {row.orderStatus}
         </span>
       )
     },

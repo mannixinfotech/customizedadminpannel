@@ -16,6 +16,8 @@ import ConfirmOrder from './Order/ConfirmOrder';
 import CancelOrder from './Order/CancelOrder';
 import DelivredOrder from './Order/DelivredOrder';
 import SubCategory from './CategorySetup/SubCategory';
+import BillPrint from './Order/BillPrint';
+
 
 function App() {
   return (
@@ -38,6 +40,9 @@ function App() {
       <Route path='/order/confirmed-order' element={<ProtectedRoute><ConfirmOrder/></ProtectedRoute>}/>
       <Route path='/order/cancel-order' element={<ProtectedRoute><CancelOrder/></ProtectedRoute>}/>
       <Route path='/order/deliver-order' element={<ProtectedRoute><DelivredOrder/></ProtectedRoute>}/>
+      <Route path='/print-bill' element={<ProtectedRoute><BillPrint/></ProtectedRoute>}/>
+      <Route path='/print-bill/:id' element={<ProtectedRoute><BillPrint/></ProtectedRoute>}/>
+     
       </Routes>
      </BrowserRouter>
     </div>

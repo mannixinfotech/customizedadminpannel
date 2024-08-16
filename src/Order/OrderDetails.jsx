@@ -18,7 +18,7 @@ const OrderDetails = () => {
       try {
         const response = await axios.get(`http://localhost:5000/order/order-details/get/${id}`);
         setOrder(response.data.data);
-        setStatus(response.data.data.paymentStatus || ''); // Set default status if needed
+        setStatus(response.data.data.orderStatus || ''); // Set default status if needed
         setDeliveryDate(response.data.data.deliveryDate || ''); // Set default delivery date if needed
         setLoading(false);
       } catch (error) {
@@ -34,7 +34,7 @@ const OrderDetails = () => {
     try {
       const response = await axios.post('http://localhost:5000/order/updatePaymentStatus', {
         id,
-        paymentStatus: status,
+        orderStatus: status,
         deliveryDate
       });
       toast.success('Order Status updated successfully');
@@ -47,6 +47,10 @@ const OrderDetails = () => {
 
   const sendToEmail = async () => {
     try {
+      // First, update the order status
+      await updateOrder();
+  
+      // Then, send the email
       const templateParams = {
         orderId: order._id,
         user_email: order.email,
@@ -54,12 +58,12 @@ const OrderDetails = () => {
         totalPrice: order.totalPrice,
         orderDate: order.OrderDate,
         address: order.address,
-        paymentStatus: status,
+        orderStatus: status,
         paymentMode: order.paymentMode,
         deliveryDate: deliveryDate,
         message: `Your order has been delivered successfully on ${deliveryDate}. Thank you for shopping with us!`
       };
-
+  
       emailjs.send('service_oxo4hxf', 'template_usqsb98', templateParams, 'ktZBU8MR4ujCBjOfN')
         .then((response) => {
           console.log('SUCCESS!', response.status, response.text);
@@ -68,12 +72,13 @@ const OrderDetails = () => {
           console.error('FAILED...', error);
           toast.error('Failed to send order details to email');
         });
-
+  
     } catch (error) {
       console.error('Error sending email:', error);
       toast.error('Failed to send order details to email');
     }
   };
+  
 
   if (loading) return <p>Loading...</p>;
   if (!order) return <p>No order found.</p>;
@@ -103,8 +108,9 @@ const OrderDetails = () => {
               <div><p className='font-semibold'>Order Date: {order.OrderDate}</p></div>
               <div>
                 <p className=''><span className='font-semibold'>Address:</span> {order.address}</p>
-                <p className=''><span className='font-semibold'>Payment Status:</span> {order.paymentStatus}</p>
+                <p className=''><span className='font-semibold'>Order Status:</span> {order.orderStatus}</p>
                 <p className=''><span className='font-semibold'>Payment Method:</span> {order.paymentMode}</p>
+                <p className=''><span className='font-semibold'>Payment Status:</span>{order.paymentStatus}</p>
               </div>
             </div>
             <DataTable

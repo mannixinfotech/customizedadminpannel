@@ -40,7 +40,23 @@ const navigate = useNavigate();
   };
 
  
-
+  const handleDownload = (url) => {
+    // Fetch the image data
+    axios.get(url, { responseType: 'blob' })
+      .then((response) => {
+        // Create a blob URL
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = url.split('/').pop(); // Set the filename from the URL
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch((error) => {
+        console.error("There was an error downloading the image!", error);
+      });
+  };
  
   
 
@@ -57,6 +73,12 @@ const navigate = useNavigate();
   const handleViewClick = (id) => {
     navigate(`/order-details/${id}`);
   };
+  const handleBillPrint =(id) =>
+    {
+      navigate(`/print-bill/${id}`);
+    }
+  
+  
   
   const columns = [
     {
@@ -65,9 +87,41 @@ const navigate = useNavigate();
       sortable: false,
     },
     {
+      name: "logo",
+      selector: (row) => row.photo,
+      cell: (row) => (
+        <div className='flex items-center justify-center'>
+          {row.photo ? (
+            <img
+              src={row.photo}
+              alt="Order"
+              onClick={() => handleDownload(row.photo)} 
+              className='w-14 h-14 pt-2 pb-2'
+              onError={(e) => e.target.src = "./default-image.png"} // Fallback image if photo fails to load
+            />
+          ) : (
+            <span className='text-gray-500'>{row.logoName}</span> // Show logoName if photo is not available
+          )}
+        </div>
+      ),
+    },
+    {
+      name: "Code",
+      selector: (row) => row.subCategoryName,
+      sortable: false,
+    },
+
+    {
       name: "Customer Info",
       selector: (row) => row.email,
       sortable: false,
+      minWidth:"200px"
+    },
+    {
+      name: "Payment Mode",
+      selector: (row) => row.paymentMode,
+      sortable: false,
+      minWidth:"140px"
     },
     
     {
@@ -75,13 +129,21 @@ const navigate = useNavigate();
       selector: (row) => row.totalPrice,
       sortable: false,
     },
+    {
+      name:"Order Date",
+      selector:(row)=>row.OrderDate,
+      minWidth:"120px"
+    },
+   
+    
     { 
-      name: "Payment Status", 
-      selector: (row) => row.paymentStatus,
+      name: "Order Status", 
+      selector: (row) => row.orderStatus,
       sortable: false,
+      minWidth:"120px",
       cell: (row) => (
-        <span className={`status-${row.paymentStatus.toLowerCase()}`}>
-          {row.paymentStatus}
+        <span className={`status-${row.orderStatus.toLowerCase()}`}>
+          {row.orderStatus}
         </span>
       )
     },
@@ -96,7 +158,7 @@ const navigate = useNavigate();
              <VisibilityIcon className="text-xl border-2  border-indigo-500" />
           </button>
           <button
-           
+            onClick={()=>handleBillPrint(row._id)}
             className="text-red-600 hover:text-red-800"
           >
               <PrintIcon className="text-xl border-2 border-red-600" />
@@ -145,7 +207,7 @@ const navigate = useNavigate();
               </div>
             </div>
             <DataTable
-            className='p-5'
+            className=''
               columns={columns}
               data={filteredProducts}
               progressPending={loading}

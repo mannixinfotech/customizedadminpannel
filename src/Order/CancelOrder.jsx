@@ -1,25 +1,19 @@
-import React, { useEffect, useState }  from 'react'
-import SideBar from '../Componets/SideBar'
-
-
+import React, { useEffect, useState } from 'react';
+import SideBar from '../Componets/SideBar';
 import DataTable from 'react-data-table-component';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import axios from 'axios';
 import DownloadIcon from "@mui/icons-material/Download";
-
 import PrintIcon from '@mui/icons-material/Print';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
 
 const CancelOrder = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
- 
   const [searchQuery, setSearchQuery] = useState("");
-  
-const navigate = useNavigate();
- 
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
@@ -39,12 +33,6 @@ const navigate = useNavigate();
       });
   };
 
- 
-
- 
-  
-
-
   const handleSearch = (event) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
@@ -54,10 +42,29 @@ const navigate = useNavigate();
       )
     );
   };
+
   const handleViewClick = (id) => {
     navigate(`/order-details/${id}`);
   };
-  
+
+  const handleDownload = (url) => {
+    // Fetch the image data
+    axios.get(url, { responseType: 'blob' })
+      .then((response) => {
+        // Create a blob URL
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = url.split('/').pop(); // Set the filename from the URL
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch((error) => {
+        console.error("There was an error downloading the image!", error);
+      });
+  };
+
   const columns = [
     {
       name: "SL",
@@ -65,9 +72,41 @@ const navigate = useNavigate();
       sortable: false,
     },
     {
+      name: "logo",
+      selector: (row) => row.photo,
+      cell: (row) => (
+        <div className='flex items-center justify-center'>
+          {row.photo ? (
+            <img
+              src={row.photo}
+              alt="Order"
+              onClick={() => handleDownload(row.photo)} 
+              className='w-14 h-14 pt-2 pb-2'
+              onError={(e) => e.target.src = "./default-image.png"} // Fallback image if photo fails to load
+            />
+          ) : (
+            <span className='text-gray-500'>{row.logoName}</span> // Show logoName if photo is not available
+          )}
+        </div>
+      ),
+    },
+    {
+      name: "Code",
+      selector: (row) => row.subCategoryName,
+      sortable: false,
+    },
+
+    {
       name: "Customer Info",
       selector: (row) => row.email,
       sortable: false,
+      minWidth:"200px"
+    },
+    {
+      name: "Payment Mode",
+      selector: (row) => row.paymentMode,
+      sortable: false,
+      minWidth:"140px"
     },
     
     {
@@ -75,13 +114,21 @@ const navigate = useNavigate();
       selector: (row) => row.totalPrice,
       sortable: false,
     },
+    {
+      name:"Order Date",
+      selector:(row)=>row.OrderDate,
+      minWidth:"120px"
+    },
+   
+    
     { 
-      name: "Payment Status", 
-      selector: (row) => row.paymentStatus,
+      name: "Order Status", 
+      selector: (row) => row.orderStatus,
       sortable: false,
+      minWidth:"130px",
       cell: (row) => (
-        <span className={`status-${row.paymentStatus.toLowerCase()}`}>
-          {row.paymentStatus}
+        <span className={`status-${row.orderStatus.toLowerCase()}`}>
+          {row.orderStatus}
         </span>
       )
     },
@@ -106,21 +153,19 @@ const navigate = useNavigate();
     },
     
   ];
+
   return (
     <div>
-    <SideBar/>
-    <div className='md:pl-64 pt-14 m-2'>
-    <div className="flex items-center pt-3 pl-6">
-         <img src='../allorder.png' alt='/' className='h-6 w-6'/>
+      <SideBar />
+      <div className='md:pl-64 pt-14 m-2'>
+        <div className="flex items-center pt-3 pl-6">
+          <img src='../allorder.png' alt='/' className='h-6 w-6' />
           <p className="font-bold text-lg px-2">
-          Canceled Order
+            Canceled Order
           </p>
         </div>
-      
-       
         <div className="p-5">
           <div className="bg-white border border-gray-200 p-3 rounded-lg shadow-md">
-         
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 p-5">
               <div className="flex items-center mb-4 md:mb-0">
                 <input
@@ -139,13 +184,12 @@ const navigate = useNavigate();
               </div>
               <div className="flex space-x-2">
                 <button className="border border-indigo-500 text-indigo-500 p-2 px-4 rounded hover:bg-indigo-500 hover:text-white">
-                  <DownloadIcon/> Export
+                  <DownloadIcon /> Export
                 </button>
-               
               </div>
             </div>
             <DataTable
-            className='p-5'
+              className=''
               columns={columns}
               data={filteredProducts}
               progressPending={loading}
@@ -163,13 +207,9 @@ const navigate = useNavigate();
             />
           </div>
         </div>
-        
-       
       </div>
     </div>
-    
-    
-  )
-}
+  );
+};
 
-export default CancelOrder
+export default CancelOrder;
