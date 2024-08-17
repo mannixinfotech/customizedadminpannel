@@ -12,7 +12,7 @@ const DashBoard = () => {
   const [CancelOrder,setCancelOrder]=useState(0);
   const[confirm,setConfirm]=useState(0);
   const fetchPendingOrder = () => {
-    axios.get("http://localhost:5000/order/pendingStatusOrder")
+    axios.get("https://customizedapi.onrender.com/order/pendingStatusOrder")
       .then((response) => {
         if (response.data && response.data.data) {
           setPendingOrder(response.data.data.length);
@@ -29,7 +29,7 @@ const DashBoard = () => {
     fetchPendingOrder();
   }, []);
   const fetchDeliviredOrder = () => {
-    axios.get("http://localhost:5000/order/DeliveredStatusOrder")
+    axios.get("https://customizedapi.onrender.com/order/DeliveredStatusOrder")
       .then((response) => {
         if (response.data && response.data.data) {
           setDelivred(response.data.data.length);
@@ -46,7 +46,7 @@ const DashBoard = () => {
     fetchDeliviredOrder();
   }, []);
   const fetchConfirmOrder = () => {
-    axios.get("http://localhost:5000/order/ConfirmedStatusOrder")
+    axios.get("https://customizedapi.onrender.com/order/ConfirmedStatusOrder")
       .then((response) => {
         if (response.data && response.data.data) {
           setConfirm(response.data.data.length);
@@ -65,7 +65,7 @@ const DashBoard = () => {
   
 
   const fetchCancelOrder = () => {
-    axios.get("http://localhost:5000/order/CanceledStatusOrder")
+    axios.get("https://customizedapi.onrender.com/order/CanceledStatusOrder")
       .then((response) => {
         if (response.data && response.data.data) {
           setCancelOrder(response.data.data.length);

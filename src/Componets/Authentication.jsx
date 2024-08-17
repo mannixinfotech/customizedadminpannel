@@ -39,7 +39,7 @@ function Authentication() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/admin/add",
+        "https://customizedapi.onrender.com/admin/add",
         {
           method: "POST",
           headers: {
