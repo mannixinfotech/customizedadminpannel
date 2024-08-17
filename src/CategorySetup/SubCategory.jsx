@@ -29,7 +29,7 @@ const SubCategory = () => {
 
  
   const fetchCategories = () => {
-    axios.get("http://localhost:5000/category/get")
+    axios.get("https://customizedapi.onrender.com/category/get")
       .then((response) => {
         setCategories(response.data.data);
         setLoading(false);
@@ -41,7 +41,7 @@ const SubCategory = () => {
   };
   const fetchSubCategories = () => {
 
-    axios.get("http://localhost:5000/sub-category/get")
+    axios.get("https://customizedapi.onrender.com/sub-category/get")
       .then((response) => {
         setSubCategories(response.data.data);
         setLoading(false);
@@ -79,7 +79,7 @@ const SubCategory = () => {
 
     if (editMode) {
       // Update category
-      axios.put(`http://localhost:5000/sub-category/update/${editId}`, data, {
+      axios.put(`https://customizedapi.onrender.com/sub-category/update/${editId}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
@@ -97,7 +97,7 @@ const SubCategory = () => {
         });
     } else {
       // Add new category
-      axios.post("http://localhost:5000/sub-category/add", data, {
+      axios.post("https://customizedapi.onrender.com/sub-category/add", data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
@@ -138,7 +138,7 @@ const SubCategory = () => {
   };
 
   const confirmDelete = () => {
-    axios.delete(`http://localhost:5000/sub-category/delete/${deleteId}`)
+    axios.delete(`https://customizedapi.onrender.com/sub-category/delete/${deleteId}`)
       .then((response) => {
         if (response.status === 200) {
           fetchSubCategories();

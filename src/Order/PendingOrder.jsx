@@ -27,7 +27,7 @@ const navigate = useNavigate();
 
   const fetchProducts = () => {
     axios
-      .get("http://localhost:5000/order/pendingStatusOrder")
+      .get("https://customizedapi.onrender.com/order/pendingStatusOrder")
       .then((response) => {
         setProducts(response.data.data);
         setFilteredProducts(response.data.data);

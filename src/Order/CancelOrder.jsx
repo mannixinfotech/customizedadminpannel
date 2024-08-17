@@ -21,7 +21,7 @@ const CancelOrder = () => {
 
   const fetchProducts = () => {
     axios
-      .get("http://localhost:5000/order/CanceledStatusOrder")
+      .get("https://customizedapi.onrender.com/order/CanceledStatusOrder")
       .then((response) => {
         setProducts(response.data.data);
         setFilteredProducts(response.data.data);

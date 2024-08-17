@@ -25,7 +25,7 @@ const Category = () => {
   }, []);
 
   const fetchCategories = () => {
-    axios.get("http://localhost:5000/category/get")
+    axios.get("https://customizedapi.onrender.com/category/get")
       .then((response) => {
         setCategories(response.data.data);
         setLoading(false);
@@ -61,7 +61,7 @@ const Category = () => {
 
     if (editMode) {
       // Update category
-      axios.put(`http://localhost:5000/category/update/${editId}`, data, {
+      axios.put(`https://customizedapi.onrender.com/category/update/${editId}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
@@ -79,7 +79,7 @@ const Category = () => {
         });
     } else {
       // Add new category
-      axios.post("http://localhost:5000/category/add", data, {
+      axios.post("https://customizedapi.onrender.com/category/add", data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
@@ -113,7 +113,7 @@ const Category = () => {
   };
 
   const confirmDelete = () => {
-    axios.delete(`http://localhost:5000/category/delete/${deleteId}`)
+    axios.delete(`https://customizedapi.onrender.com/category/delete/${deleteId}`)
       .then((response) => {
         if (response.status === 200) {
           fetchCategories();

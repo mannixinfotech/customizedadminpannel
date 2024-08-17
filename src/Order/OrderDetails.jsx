@@ -16,7 +16,7 @@ const OrderDetails = () => {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/order/order-details/get/${id}`);
+        const response = await axios.get(`https://customizedapi.onrender.com/order/order-details/get/${id}`);
         setOrder(response.data.data);
         setStatus(response.data.data.orderStatus || ''); // Set default status if needed
         setDeliveryDate(response.data.data.deliveryDate || ''); // Set default delivery date if needed
@@ -32,7 +32,7 @@ const OrderDetails = () => {
 
   const updateOrder = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/order/updatePaymentStatus', {
+      const response = await axios.post('https://customizedapi.onrender.com/order/updatePaymentStatus', {
         id,
         orderStatus: status,
         deliveryDate

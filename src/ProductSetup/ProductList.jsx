@@ -26,7 +26,7 @@ const ProductList = () => {
 
   const fetchProducts = () => {
     axios
-      .get("http://localhost:5000/product/get")
+      .get("https://customizedapi.onrender.com/product/get")
       .then((response) => {
         setProducts(response.data.data);
         setFilteredProducts(response.data.data);
@@ -51,7 +51,7 @@ const ProductList = () => {
 
   const confirmDelete = () => {
     axios
-      .delete(`http://localhost:5000/product/delete/${deleteId}`)
+      .delete(`https://customizedapi.onrender.com/product/delete/${deleteId}`)
       .then((response) => {
         if (response.status === 200) {
           fetchProducts();

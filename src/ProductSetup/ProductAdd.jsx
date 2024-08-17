@@ -27,12 +27,12 @@ const ProductAdd = () => {
 
   useEffect(() => {
     // Fetch categories
-    axios.get('http://localhost:5000/category/get')
+    axios.get('https://customizedapi.onrender.com/category/get')
       .then(response => setCategories(response.data.data))
       .catch(error => console.error(error));
 
     // Fetch subcategories
-    axios.get('http://localhost:5000/sub-category/get')
+    axios.get('https://customizedapi.onrender.com/sub-category/get')
       .then(response => {
         setSubCategories(response.data.data);
         // Filter subcategories for the selected category if applicable
@@ -118,8 +118,8 @@ const ProductAdd = () => {
     setLoading(true);
 
     const request = state && state.product ? 
-      axios.put(`http://localhost:5000/product/update/${state.product._id}`, data) :
-      axios.post('http://localhost:5000/product/add', data);
+      axios.put(`https://customizedapi.onrender.com/product/update/${state.product._id}`, data) :
+      axios.post('https://customizedapi.onrender.com/product/add', data);
 
     request.then((response) => {
       setLoading(false);

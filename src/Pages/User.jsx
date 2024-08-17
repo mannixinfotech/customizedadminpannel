@@ -21,7 +21,7 @@ const User = () => {
     }, []);
     const fetchProducts = () => {
         axios
-          .get("http://localhost:5000/register/get")
+          .get("https://customizedapi.onrender.com/register/get")
           .then((response) => {
             setOrders(response.data.data);
             setLoading(false);
@@ -38,7 +38,7 @@ const User = () => {
   };
     const confirmDelete = () => {
         axios
-          .delete(`http://localhost:5000/register/delete/${deleteId}`)
+          .delete(`https://customizedapi.onrender.com/register/delete/${deleteId}`)
           .then((response) => {
             if (response.status === 200) {
               fetchProducts();

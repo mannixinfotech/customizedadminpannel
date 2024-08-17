@@ -20,7 +20,7 @@ const BillPrint = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/order/order-details/get/${id}`)
+      .get(`https://customizedapi.onrender.com/order/order-details/get/${id}`)
       .then((response) => {
         setOrder(response.data.data);
         setLoading(false);
