@@ -229,15 +229,15 @@ const fetchProducts = () => {
         <div className="flex space-x-2">
          <button
           onClick={() => handleViewClick(row._id)}
-          className="text-indigo-600 hover:text-indigo-800"
+          className="text-red-600 hover:text-red-600"
         >
-             <VisibilityIcon className="text-xl border-2  border-indigo-500" />
+             <VisibilityIcon className="text-xl border  border-black" />
           </button>
           <button
             onClick={()=>handleBillPrint(row._id)}
-            className="text-red-600 hover:text-red-800"
+            className="text-black hover:text-red-600"
           >
-              <PrintIcon className="text-xl border-2 border-red-600" />
+              <PrintIcon className="text-xl border border-red-500" />
           </button>
         </div>
       ),
@@ -268,7 +268,7 @@ const fetchProducts = () => {
                     className="w-5 h-5"
                   />
                   <p className="ml-2 font-semibold">Pending</p>
-                  <p className="ml-auto text-indigo-500 font-bold">{pendingOrder}</p>
+                  <p className="ml-auto text-red-600 font-bold">{pendingOrder}</p>
                 </div>
               </div>
               <div className="bg-gray-100 rounded-lg p-3">
@@ -279,7 +279,7 @@ const fetchProducts = () => {
                     className="w-5 h-5"
                   />
                   <p className="ml-2 font-semibold">Confirmed</p>
-                  <p className="ml-auto text-indigo-500 font-bold">{confirm}</p>
+                  <p className="ml-auto text-red-600 font-bold">{confirm}</p>
                 </div>
               </div>
              
@@ -293,7 +293,7 @@ const fetchProducts = () => {
                     className="w-5 h-5"
                   />
                   <p className="ml-2 font-semibold">Canceled</p>
-                  <p className="ml-auto text-indigo-500 font-bold">{CancelOrder}</p>
+                  <p className="ml-auto text-red-600 font-bold">{CancelOrder}</p>
                 </div>
               </div>
               <div className="bg-gray-100 rounded-lg p-3">
@@ -304,7 +304,7 @@ const fetchProducts = () => {
                     className="w-5 h-5"
                   />
                   <p className="ml-2 font-semibold">Delivered</p>
-                  <p className="ml-auto text-indigo-500 font-bold">{delivred}</p>
+                  <p className="ml-auto text-red-600 font-bold">{delivred}</p>
                 </div>
               </div>
             
@@ -321,13 +321,13 @@ const fetchProducts = () => {
                 />
                 <button
                   onClick={() => setFilteredProducts(products.filter((product) => product.email.toLowerCase().includes(searchQuery)))}
-                  className="bg-indigo-500 text-white p-2 px-4 rounded-r-md"
+                  className="bg-red-600 text-white p-2 px-4 rounded-r-md"
                 >
                   Search
                 </button>
               </div>
               <div className="flex space-x-2">
-                <button className="border border-indigo-500 text-indigo-500 p-2 px-4 rounded hover:bg-indigo-500 hover:text-white">
+                <button className="border border-red-600 text-red-600 p-2 px-4 rounded hover:bg-red-600 hover:text-white">
                   <DownloadIcon/> Export
                 </button>
                

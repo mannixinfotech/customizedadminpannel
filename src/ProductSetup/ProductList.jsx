@@ -94,7 +94,7 @@ const ProductList = () => {
         <img
           src={row.photo}
           alt="Product"
-          className="w-14 h-14 mt-2 mb-2 object-cover"
+          className="w-10 h-10 mt-2 mb-2 object-cover"
         />
       ),
     },
@@ -164,18 +164,18 @@ const ProductList = () => {
                 />
                 <button
                   onClick={() => setFilteredProducts(products.filter((product) => product.productName.toLowerCase().includes(searchQuery)))}
-                  className="bg-indigo-500 text-white p-2 px-4 rounded-r-md"
+                  className="bg-red-600 text-white p-2 px-4 rounded-r-md"
                 >
                   Search
                 </button>
               </div>
               <div className="flex space-x-2">
-                <button className="border border-indigo-500 text-indigo-500 p-2 px-4 rounded hover:bg-indigo-500 hover:text-white">
+                <button className="border border-red-600 text-red-600 p-2 px-4 rounded hover:bg-red-600 hover:text-white">
                   <DownloadIcon /> Export
                 </button>
                 <button
                   onClick={() => navigate("/product-add")}
-                  className="border border-indigo-500 bg-indigo-500 text-white p-2 px-4 rounded hover:bg-indigo-600"
+                  className="border border-red-600 bg-red-600 text-white p-2 px-4 rounded hover:bg-red-600"
                 >
                   <AddIcon /> Add New Product
                 </button>

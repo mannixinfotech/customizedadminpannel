@@ -214,7 +214,7 @@ const SubCategory = () => {
         <form onSubmit={handleSubmit} encType="multipart/form-data">
   <ul className="flex mb-4">
     <li className="nav-item">
-      <a className="nav-link lang_link active text-blue-500" href="/" id="en-link">English(EN)</a>
+      <a className="nav-link lang_link active text-red-600" href="/" id="en-link">English(EN)</a>
     </li>
   </ul>
   <div className="flex flex-wrap md:flex-nowrap gap-2 items-end">
@@ -272,7 +272,7 @@ const SubCategory = () => {
   </div>
   <div className="flex md:justify-end gap-3 mt-4">
     <button type="reset" id="reset" className="btn btn-secondary bg-gray-400 text-white py-2 px-4 rounded-md" onClick={resetForm}>Reset</button>
-    <button type="submit" className="btn btn-primary bg-indigo-500 text-white py-2 px-4 rounded-md">{editMode ? 'Update' : 'Submit'}</button>
+    <button type="submit" className="btn btn-primary bg-red-600 text-white py-2 px-4 rounded-md">{editMode ? 'Update' : 'Submit'}</button>
   </div>
 </form>
 

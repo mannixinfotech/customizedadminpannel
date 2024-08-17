@@ -119,7 +119,7 @@ const DashBoard = () => {
       <SideBar />
       <div className="pt-12 md:pl-64 m-2 ">
         <div className="m-2">
-          <p className="text-indigo-500 text-xl font-bold">
+          <p className="text-red-600 text-xl font-bold">
             Welcome, Make It Yours
           </p>
           <p className="text-gray-600">
@@ -138,7 +138,7 @@ const DashBoard = () => {
               Business Analytics
             </p>
             <div className="grid grid-cols-1 xl:grid-cols-4 sm:grid-cols-2 gap-4">
-              <div className="bg-white shadow-md rounded-lg p-3 border border-indigo-500">
+              <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
                 <div className="flex justify-between">
                   <p className="font-semibold">Pending</p>
                   <img
@@ -149,7 +149,7 @@ const DashBoard = () => {
                 </div>
                 <p className="text-2xl font-bold">{pendingOrder}</p>
               </div>
-              <div className="bg-white shadow-md rounded-lg p-3 border border-indigo-500">
+              <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
                 <div className="flex justify-between">
                   <p className="font-semibold">Confirmed</p>
                   <img
@@ -160,7 +160,7 @@ const DashBoard = () => {
                 </div>
                 <p className="text-2xl font-bold">{confirm}</p>
               </div>
-              <div className="bg-white shadow-md rounded-lg p-3 border border-indigo-500">
+              <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
                 <div className="flex justify-between">
                   <p className="font-semibold">Canceled</p>
                   <img
@@ -171,7 +171,7 @@ const DashBoard = () => {
                 </div>
                 <p className="text-2xl font-bold">{CancelOrder}</p>
               </div>
-              <div className="bg-white shadow-md rounded-lg p-3 border border-indigo-500">
+              <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
                 <div className="flex justify-between">
                   <p className="font-semibold">Delivered</p>
                   <img
@@ -194,8 +194,8 @@ const DashBoard = () => {
                     <img src="./growth.png" alt="Growth" width="20px" />
                     <p className="px-3">Order Statistics</p>
                   </p>
-                  <div className="flex gap-3 border rounded-lg border-indigo-500 p-1 text-xs text-indigo-500">
-                    <p className="bg-indigo-500 text-white rounded p-1">
+                  <div className="flex gap-3 border rounded-lg border-red-600 p-1 text-xs text-red-600">
+                    <p className="bg-red-600 text-white rounded p-1">
                       This Month
                     </p>
                     <p className="p-1">This Year</p>
@@ -257,8 +257,8 @@ const DashBoard = () => {
                     <img src="./growth.png" alt="Growth" width="20px" />
                     <p className="px-3">Earning Statistics</p>
                   </p>
-                  <div className="flex gap-3 border rounded-lg border-indigo-500 p-1 text-xs text-indigo-500">
-                    <p className="bg-indigo-500 text-white rounded p-1">
+                  <div className="flex gap-3 border rounded-lg border-red-600 p-1 text-xs text-red-600">
+                    <p className="bg-red-600 text-white rounded p-1">
                       This Month
                     </p>
                     <p className="p-1">This Year</p>
@@ -279,7 +279,7 @@ const DashBoard = () => {
                 <div className="flex justify-between">
                   <p className="font-bold">Recent Orders</p>
                   <a href="/">
-                    <p className="text-indigo-500">View All</p>
+                    <p className="text-red-600">View All</p>
                   </a>
                 </div>
               </div>
@@ -291,7 +291,7 @@ const DashBoard = () => {
                 <div className="flex justify-between">
                   <p className="font-bold">Top Selling Products</p>
                   <a href="/">
-                    <p className="text-indigo-500">View All</p>
+                    <p className="text-red-600">View All</p>
                   </a>
                 </div>
               </div>
@@ -301,7 +301,7 @@ const DashBoard = () => {
                 <div className="flex justify-between">
                   <p className="font-bold">Most Rated Products</p>
                   <a href="/">
-                    <p className="text-indigo-500">View All</p>
+                    <p className="text-red-600">View All</p>
                   </a>
                 </div>
               </div>
@@ -311,7 +311,7 @@ const DashBoard = () => {
                 <div className="flex justify-between">
                   <p className="font-bold">Top Customer</p>
                   <a href="/">
-                    <p className="text-indigo-500">View All</p>
+                    <p className="text-red-600">View All</p>
                   </a>
                 </div>
               </div>

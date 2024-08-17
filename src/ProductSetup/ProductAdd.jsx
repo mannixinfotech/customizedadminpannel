@@ -288,7 +288,7 @@ const ProductAdd = () => {
           </div>
           <div className="flex justify-center md:justify-end gap-3 mt-4 col-span-1 md:col-span-2">
             <button type="reset" className="btn btn-secondary bg-gray-400 text-white py-2 px-4 rounded-md" onClick={handleReset}>Reset</button>
-            <button type="submit" className="btn btn-primary bg-indigo-500 text-white py-2 px-4 rounded-md">Submit</button>
+            <button type="submit" className="btn btn-primary bg-red-600 text-white py-2 px-4 rounded-md">Submit</button>
           </div>
         </form>
       </div>

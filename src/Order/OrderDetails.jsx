@@ -103,7 +103,7 @@ const OrderDetails = () => {
         <div className="flex flex-col md:flex-row gap-6 p-5">
           {/* Order Information Section */}
           <div className="flex-1 bg-white border border-gray-200 p-3 rounded-lg shadow-md">
-            <p className='font-bold text-lg text-indigo-500'>Customized Product</p>
+            <p className='font-bold text-lg text-red-600'>Customized Product</p>
             <div className='flex justify-between mt-4 space-y-2'>
               <div><p className='font-semibold'>Order Date: {order.OrderDate}</p></div>
               <div>
@@ -164,14 +164,14 @@ const OrderDetails = () => {
               {status === 'Delivered' ? (
                 <button
                   onClick={sendToEmail}
-                  className="bg-indigo-500 w-full text-white p-2 px-4 rounded hover:bg-indigo-600"
+                  className="bg-red-600 w-full text-white p-2 px-4 rounded hover:bg-red-600"
                 >
                   Send to Email
                 </button>
               ) : (
                 <button
                   onClick={updateOrder}
-                  className="bg-indigo-500 w-full text-white p-2 px-4 rounded hover:bg-indigo-600"
+                  className="bg-red-600 w-full text-white p-2 px-4 rounded hover:bg-red-600"
                 >
                   Update Order
                 </button>

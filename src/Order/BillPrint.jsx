@@ -50,7 +50,7 @@ const BillPrint = () => {
       <div className='mx-auto text-center mt-12'>
       <button
           onClick={handlePrint}
-          className="bg-indigo-500 text-white p-2 px-4 rounded mb-4"
+          className="bg-red-600 text-white p-2 px-4 rounded mb-4"
         >
           Print Bill
         </button>

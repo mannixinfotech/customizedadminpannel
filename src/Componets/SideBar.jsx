@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import logo from "../logo.svg"
+// import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CategoryIcon from '@mui/icons-material/Category';
 import DiamondIcon from '@mui/icons-material/Diamond';
@@ -72,7 +72,13 @@ const SideBar = () => {
       ],
     },
    
-   { label: 'Logout', icon: <ExitToAppIcon />, link: '/' },
+  //  { label: 'Logout', icon: <ExitToAppIcon />, link: '/',
+  //   onClick:()=>
+  //   {
+  //     sessionStorage.removeItem('isAuthenticated');
+  //     navigate("/", { replace: true });
+  //   }
+  //  },
   ];
 
   const filteredMenuItems = menuItems.filter((item) => {
@@ -106,8 +112,11 @@ const SideBar = () => {
             isOpen ? "block" : "hidden md:block"
           } fixed  top-0 left-0 w-64 bg-white h-full border-r overflow-y-auto z-50`}
         >
-          <div className="fixed top-0 z-50 left-0 p-3 px-14 w-full flex h-14 border-b bg-white text-black">
-            <div className="font-bold text-xl">My Software</div>
+          <div className="fixed top-0 z-50 left-0 p-3 px-14 w-full flex h-14 border-b bg-black text-black">
+            <div className="font-bold text-xl ">
+              {/* <img src='./logo.png' alt='' className='w-52 h-9'/> */}
+              <img src={logo} alt='' className='w-52 h-9'/>
+            </div>
           </div>
           <div className="overflow-y-auto overflow-x-hidden flex-grow">
       <ul className="flex flex-col py-14 space-y-1">
@@ -116,7 +125,7 @@ const SideBar = () => {
             <input
               type="text"
               placeholder="Search..."
-              className="w-full p-2 pl-10 text-sm bg-gray-100 rounded-lg focus:outline-none focus:bg-white focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-2 pl-10 text-sm bg-gray-100 rounded-lg focus:outline-none focus:bg-white focus:ring-2 focus:ring-red-600"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -141,7 +150,7 @@ const SideBar = () => {
               <div className="relative">
                 <button
                   onClick={() => toggleDropdown(item.label.toLowerCase())}
-                  className="relative flex flex-row items-center w-full h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-indigo-700 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                  className="relative flex flex-row items-center w-full h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-red-600 border-l-4 border-transparent hover:border-red-600 pr-6"
                 >
                   <span className="inline-flex justify-center items-center ml-4">
                     {/* Render Material UI icon here */}
@@ -176,7 +185,7 @@ const SideBar = () => {
                       <li key={subindex}>
                         <a
                           href={subitem.link}
-                          className="block px-4 py-1 text-sm text-gray-700 hover:text-indigo-700 flex items-center"
+                          className="block px-4 py-1 text-sm text-gray-600 hover:text-red-600 flex items-center"
                         >
                           {/* Render submenu item icon here */}
                           {subitem.icon && (
@@ -195,7 +204,7 @@ const SideBar = () => {
               // Render regular items without dropdown
               <a
                 href={item.link}
-                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-indigo-700 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-red-600 border-l-4 border-transparent hover:border-red-600 pr-6"
               >
                 <span className="inline-flex justify-center items-center ml-4">
                   {/* Render Material UI icon here */}
@@ -213,7 +222,7 @@ const SideBar = () => {
       </div>
 
      <div className="fixed top-0 w-full md:pl-64 z-50">
-          <div className="bg-indigo-500 text-white h-14 w-full flex items-center justify-end px-5">
+          <div className="bg-black text-white h-14 w-full flex items-center justify-end px-5">
             <div className="media-body d-flex align-items-end flex-column flex flex-col">
               <span className="card-title h5">Admin</span>
               
@@ -221,9 +230,9 @@ const SideBar = () => {
             <div className="relative flex items-center pl-2">
               {islockMenu && (
                 <div className="absolute right-0 mt-48 bg-white shadow-lg py-2 w-48">
-                  <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                  <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
-                  <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"  onClick={handleLogout}>Logout</a>
+                  <a href="/" className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">Profile</a>
+                  <a href="/" className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">Settings</a>
+                  <a href="/" className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100"  onClick={handleLogout}>Logout</a>
                 </div>
               )}
               <button onClick={lockDropdown} className="focus:outline-none">
