@@ -79,7 +79,7 @@ const Category = () => {
         });
     } else {
       // Add new category
-      axios.post("https://customizedapi.onrender.com/category/add", data, {
+      axios.post("http://customizedapi.onrender.com/category/add", data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
@@ -270,5 +270,4 @@ const Category = () => {
     </div>
   );
 };
-
 export default Category;
