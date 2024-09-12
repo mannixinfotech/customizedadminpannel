@@ -58,7 +58,7 @@ const Category = () => {
     const data = new FormData();
     data.append('categoryName', formData.categoryName);
     data.append('photo', formData.photo);
-
+  
     if (editMode) {
       // Update category
       axios.put(`https://customizedapi.onrender.com/category/update/${editId}`, data, {
@@ -70,8 +70,7 @@ const Category = () => {
           if (response.status === 200) {
             fetchCategories();
             resetForm();
-            toast.success('Category updated successfully!'); 
-           
+            toast.success('Category updated successfully!');
           }
         })
         .catch((error) => {
@@ -88,7 +87,7 @@ const Category = () => {
           if (response.status === 200) {
             fetchCategories();
             resetForm();
-            toast.success('Category added successfully!');  // Success toast
+            toast.success('Category added successfully!');
           }
         })
         .catch((error) => {
@@ -246,27 +245,28 @@ const Category = () => {
         </div>
         {showDeleteDialog && (
           <div className="fixed inset-0 flex items-center justify-center">
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-100">
-              <h3 className="text-lg font-semibold text-center">Confirm Delete</h3>
+            <div className="bg-white border border-gray-300 rounded-lg shadow-lg p-6 w-1/3">
+              <h2 className="text-lg font-bold mb-4">Confirm Delete</h2>
               <p>Are you sure you want to delete this category?</p>
-              <div className="mt-4 flex justify-center gap-2">
-                <button onClick={confirmDelete} className="bg-red-500 text-white py-2 px-4 rounded-md">Delete</button>
-                <button onClick={cancelDelete} className="bg-gray-500 text-white py-2 px-4 rounded-md">Cancel</button>
+              <div className="mt-4 flex justify-end space-x-4">
+                <button
+                  onClick={confirmDelete}
+                  className="bg-red-600 text-white py-2 px-4 rounded-lg"
+                >
+                  Confirm
+                </button>
+                <button
+                  onClick={cancelDelete}
+                  className="bg-gray-300 text-black py-2 px-4 rounded-lg"
+                >
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
         )}
       </div>
-      <ToastContainer
-       position="bottom-left"  
-       autoClose={5000}         
-       hideProgressBar={false}  
-       newestOnTop={false}      
-       closeOnClick
-       rtl={false}
-       pauseOnFocusLoss
-       draggable
-       pauseOnHover />
+      <ToastContainer />
     </div>
   );
 };
