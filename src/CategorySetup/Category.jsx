@@ -43,6 +43,7 @@ const Category = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    
     if (file) {
       setFormData((prevData) => ({ ...prevData, photo: file }));
       const reader = new FileReader();
@@ -79,7 +80,7 @@ const Category = () => {
         });
     } else {
       // Add new category
-      axios.post("http://customizedapi.onrender.com/category/add", data, {
+      axios.post("https://customizedapi.onrender.com/category/add", data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
@@ -270,4 +271,5 @@ const Category = () => {
     </div>
   );
 };
+
 export default Category;
