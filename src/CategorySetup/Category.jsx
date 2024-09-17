@@ -175,7 +175,7 @@ const Category = () => {
       <div className='md:pl-64 pt-14 m-2'>
         <div className="flex items-center pt-3 pl-6">
           <img
-            src="../addcategory.png"
+            src="./addcategory.png"
             alt="Add Category"
             className="w-6 h-6 mr-2"
           />
