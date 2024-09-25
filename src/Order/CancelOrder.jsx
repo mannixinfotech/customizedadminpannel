@@ -51,23 +51,7 @@ const CancelOrder = () => {
       navigate(`/print-bill/${id}`);
     }
   
-  const handleDownload = (url) => {
-    // Fetch the image data
-    axios.get(url, { responseType: 'blob' })
-      .then((response) => {
-        // Create a blob URL
-        const blob = new Blob([response.data], { type: response.headers['content-type'] });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = url.split('/').pop(); // Set the filename from the URL
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      })
-      .catch((error) => {
-        console.error("There was an error downloading the image!", error);
-      });
-  };
+
 
   const columns = [
     {
@@ -75,43 +59,21 @@ const CancelOrder = () => {
       selector:(row)=>row._id,
       sortable: false,
     },
+    
     {
-      name: "logo",
-      selector: (row) => row.photo,
-      cell: (row) => (
-        <div className='flex items-center justify-center'>
-          {row.photo ? (
-            <img
-              src={row.photo}
-              alt="Order"
-              onClick={() => handleDownload(row.photo)} 
-              className='w-14 h-14 pt-2 pb-2'
-              onError={(e) => e.target.src = "./default-image.png"} // Fallback image if photo fails to load
-            />
-          ) : (
-            <span className='text-gray-500'>{row.logoName}</span> // Show logoName if photo is not available
-          )}
-        </div>
-      ),
-    },
-    {
-      name: "Code",
-      selector: (row) => row.subCategoryName,
+      name: "Customer Info",
+      selector: (row) => row.fullname,
       sortable: false,
+      minWidth:"140px"
     },
 
     {
-      name: "Customer Info",
+      name: "Email",
       selector: (row) => row.email,
       sortable: false,
       minWidth:"200px"
     },
-    {
-      name: "Payment Mode",
-      selector: (row) => row.paymentMode,
-      sortable: false,
-      minWidth:"140px"
-    },
+   
     
     {
       name: "Amount",
@@ -121,9 +83,13 @@ const CancelOrder = () => {
     {
       name:"Order Date",
       selector:(row)=>row.OrderDate,
-      minWidth:"120px"
+      minWidth:"110px"
     },
-   
+    {
+      name:"Payment Status",
+      selector:(row)=>row.paymentStatus,
+      minWidth:"110px"
+    },
     
     { 
       name: "Order Status", 

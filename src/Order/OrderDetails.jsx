@@ -82,14 +82,113 @@ const OrderDetails = () => {
 
   if (loading) return <p>Loading...</p>;
   if (!order) return <p>No order found.</p>;
-
   const columns = [
-    { name: "SL", selector: (row) => row._id, sortable: false },
-    { name: "Email", selector: (row) => row.email, sortable: false },
-    { name: "Price", selector: (row) => row.price, sortable: false },
-    { name: "Total Price", selector: (row) => row.totalPrice, sortable: false },
+    { name: "SL", 
+      cell: (row) => (
+        <div>
+           
+             {row.items.map((item, index) => (
+            <p className="text-base mb-6 mt-6"   key={index}>{item._id}</p> // Displaying the price of each item
+          ))}
+        </div>
+    ), sortable: false },
+    
+    {
+      name: "Item Details",
+      cell: (row) => (
+        <div>
+          {row.items.map((item, index) => (
+            <div key={index} className="flex items-center mb-2">
+              {/* Conditionally render Image or logoName */}
+             
+              {/* Product Name and Quantity */}
+              <div>
+                <p className="font-bold text-base">{item.productName}</p>
+                <p className='text-base'>Qty: {item.quantity}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ),
+      sortable: false,
+    },
+    {
+      name: "Print",
+      cell: (row) => (
+        <div>
+          {row.items.map((item, index) => (
+            <div key={index} className="flex items-center mb-2">
+              {item.photo ? (
+                <img
+                  src={item.photo}
+                  alt={item.productName}
+                  onClick={() => handleDownload(item.photo)} // Pass the item.photo directly
+                  className="h-12 w-12 mr-2 pt-2 rounded cursor-pointer" // Add cursor pointer for better UX
+                />
+              ) : (
+                <div className="h-12 w-12 mr-2 pt-2 flex items-center justify-center rounded">
+                  <p className="text-base">{item.logoName || 'No Image'}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      ),
+      sortable: false,
+    }
+    ,
+ 
+    {
+      name: "Price",
+      cell: (row) => (
+        <div className='text-center'>
+          {row.items.map((item, index) => (
+            <p className="text-base mb-6 mt-6"   key={index}>₹{item.price}</p> // Displaying the price of each item
+          ))}
+        </div>
+      ),
+      sortable: false,
+    },
+    {
+      name: "ItemPrice",
+      cell: (row) => (
+        <div>
+          {row.items.map((item, index) => (
+            <p className='text-base mb-6 mt-6' key={index}>₹{item.totalItemPrice}</p> // Displaying total price for each item
+          ))}
+        </div>
+      ),
+      sortable: false,
+    },
   ];
-
+  
+  const handleDownload = (url) => {
+    // Fetch the image data
+    axios.get(url, { responseType: 'blob' })
+      .then((response) => {
+        // Create a blob URL
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = url.split('/').pop(); // Set the filename from the URL
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch((error) => {
+        console.error("There was an error downloading the image!", error);
+      });
+  };
+  const TotalPriceDisplay = ({ data }) => {
+    // Calculate total price for all orders
+    const totalPrice = data.reduce((sum, row) => sum + row.totalPrice, 0);
+  
+    return (
+      <div className="text-right mt-4">
+        <p className="font-bold text-xl">Total Price: ₹{totalPrice}</p>
+      </div>
+    );
+  };
   const data = [order];
 
   return (
@@ -104,7 +203,9 @@ const OrderDetails = () => {
           {/* Order Information Section */}
           <div className="flex-1 bg-white border border-gray-200 p-3 rounded-lg shadow-md">
             <p className='font-bold text-lg text-red-600'>Customized Product</p>
+            <p className='text-xl font-semibold mt-2'>Order #{order._id}</p>
             <div className='flex justify-between mt-4 space-y-2'>
+             
               <div><p className='font-semibold'>Order Date: {order.OrderDate}</p></div>
               <div>
                 <p className=''><span className='font-semibold'>Address:</span> {order.address}</p>
@@ -115,19 +216,22 @@ const OrderDetails = () => {
             </div>
             <DataTable
               columns={columns}
-              className='md:mt-12 mt-6'
+              className='md:mt-12 mt-6 '
               data={data}
               progressPending={loading}
               highlightOnHover
               customStyles={{
                 headRow: {
                   style: {
-                    fontSize: "15px",
+                    fontSize: "17px",
                     fontWeight: "bold",
+                    backgroundColor:"#C0C2C9"
+                   
                   },
                 },
               }}
             />
+            <TotalPriceDisplay data={data} />
           </div>
 
           {/* Update Order Status Section */}
