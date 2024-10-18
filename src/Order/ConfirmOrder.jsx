@@ -2,7 +2,6 @@ import React, { useEffect, useState }  from 'react'
 import SideBar from '../Componets/SideBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toast, ToastContainer } from 'react-toastify';
-
 import DataTable from 'react-data-table-component';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import axios from 'axios';
@@ -10,7 +9,6 @@ import DownloadIcon from "@mui/icons-material/Download";
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import PrintIcon from '@mui/icons-material/Print';
 import { useNavigate } from 'react-router-dom';
-
 
 const ConfirmOrder = () => {
   const [products, setProducts] = useState([]);
@@ -21,9 +19,7 @@ const ConfirmOrder = () => {
   const [searchQuery, setSearchQuery] = useState("");
   
 const navigate = useNavigate();
- 
-
-  useEffect(() => {
+ useEffect(() => {
     fetchProducts();
   }, []);
 
