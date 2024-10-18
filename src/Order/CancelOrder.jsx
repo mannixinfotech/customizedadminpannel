@@ -18,8 +18,7 @@ const CancelOrder = () => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
+ useEffect(() => {
     fetchProducts();
   }, []);
 
