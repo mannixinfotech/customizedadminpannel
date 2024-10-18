@@ -1,18 +1,14 @@
 import React, { useEffect, useState }  from 'react'
 import SideBar from '../Componets/SideBar'
-
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import DataTable from 'react-data-table-component';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import axios from 'axios';
 import DownloadIcon from "@mui/icons-material/Download";
-
 import PrintIcon from '@mui/icons-material/Print';
 import { useNavigate } from 'react-router-dom';
-
 
 const DelivredOrder = () => {
   const [products, setProducts] = useState([]);
@@ -21,15 +17,11 @@ const DelivredOrder = () => {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  
-const navigate = useNavigate();
- 
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  const fetchProducts = () => {
+const fetchProducts = () => {
     axios
       .get("https://customizedapi.onrender.com/order/DeliveredStatusOrder")
       .then((response) => {
@@ -42,13 +34,7 @@ const navigate = useNavigate();
         setLoading(false);
       });
   };
-
- 
-
-  
-
-
-  const handleSearch = (event) => {
+const handleSearch = (event) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
     setFilteredProducts(
@@ -107,9 +93,7 @@ const navigate = useNavigate();
       sortable: false,
       minWidth:"200px"
     },
-   
-    
-    {
+   {
       name: "Amount",
       selector: (row) => row.totalPrice,
       sortable: false,
@@ -161,8 +145,7 @@ const navigate = useNavigate();
         </div>
       ),
     },
-    
-  ];
+    ];
   return (
     <div>
     <SideBar/>
@@ -173,12 +156,9 @@ const navigate = useNavigate();
           Delivered Order
           </p>
         </div>
-      
-       
-        <div className="p-5">
+       <div className="p-5">
           <div className="bg-white border border-gray-200 p-3 rounded-lg shadow-md">
-         
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 p-5">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 p-5">
               <div className="flex items-center mb-4 md:mb-0">
                 <input
                   type="text"
@@ -198,8 +178,7 @@ const navigate = useNavigate();
                 <button className="border border-red-600 text-red-600 p-2 px-4 rounded hover:bg-red-600 hover:text-white">
                   <DownloadIcon/> Export
                 </button>
-               
-              </div>
+               </div>
             </div>
             <DataTable
             className=''
@@ -220,14 +199,11 @@ const navigate = useNavigate();
             />
           </div>
         </div>
-        
-       
-      </div>
+         </div>
       {showDeleteDialog && (
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="bg-gray-100 p-6 rounded shadow-lg">
-             
-              <p>Are you sure you want to delete this user data?</p>
+             <p>Are you sure you want to delete this user data?</p>
               <div className="mt-4 flex space-x-4 justify-center">
                 <button
                   onClick={confirmDelete}
@@ -246,9 +222,7 @@ const navigate = useNavigate();
           </div>
         )}
       <ToastContainer/>
-    </div>
-    
-    
+    </div> 
   )
 }
 
