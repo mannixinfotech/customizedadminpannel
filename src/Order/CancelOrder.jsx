@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 const CancelOrder = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -21,8 +20,7 @@ const CancelOrder = () => {
  useEffect(() => {
     fetchProducts();
   }, []);
-
-  const fetchProducts = () => {
+const fetchProducts = () => {
     axios
       .get("https://customizedapi.onrender.com/order/CanceledStatusOrder")
       .then((response) => {
@@ -44,16 +42,14 @@ const handleSearch = (event) => {
       )
     );
   };
-
-  const handleViewClick = (id) => {
+const handleViewClick = (id) => {
     navigate(`/order-details/${id}`);
   };
   const handleBillPrint =(id) =>
     {
       navigate(`/print-bill/${id}`);
     }
-  
-    const handleDelete = (row) => {
+  const handleDelete = (row) => {
       setDeleteId(row._id);
       setShowDeleteDialog(true);
     };
@@ -76,8 +72,6 @@ const handleSearch = (event) => {
           setShowDeleteDialog(false);
           setDeleteId(null);
         };
-  
-
   const columns = [
     {
       name: "SL",
@@ -154,8 +148,7 @@ const handleSearch = (event) => {
     },
     
   ];
-
-  return (
+return (
     <div>
       <SideBar />
       <div className='md:pl-64 pt-14 m-2'>
