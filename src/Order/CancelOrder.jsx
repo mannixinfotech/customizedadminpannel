@@ -35,8 +35,7 @@ const CancelOrder = () => {
         setLoading(false);
       });
   };
-
-  const handleSearch = (event) => {
+const handleSearch = (event) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
     setFilteredProducts(
