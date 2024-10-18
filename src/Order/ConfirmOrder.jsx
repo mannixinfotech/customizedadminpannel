@@ -68,7 +68,7 @@ const navigate = useNavigate();
     };
       const confirmDelete = () => {
           axios
-            .delete(`https://customizedapi.onrender.com/delete/${deleteId}`)
+            .delete(`https://customizedapi.onrender.com/order/delete/${deleteId}`)
             .then((response) => {
               if (response.status === 200) {
                 fetchProducts();
