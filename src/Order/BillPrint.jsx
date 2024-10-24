@@ -61,7 +61,7 @@ const BillPrint = () => {
             <br /> Gurukul Rd, Nilmani Society, Memnagar,
             <br /> Ahmedabad, Gujarat 380052
           </p>
-          <p className="text-lg font-normal">+91 9898989898</p>
+          <p className="text-lg font-normal">+91 7600483333</p>
           <p className="border-b border-black md:w-[450px] w-[350px] mx-auto mt-3"></p>
           <p className="border-b border-black md:w-[450px] w-[350px] mx-auto mt-1"></p>
         </div>
