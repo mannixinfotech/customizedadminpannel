@@ -13,7 +13,7 @@ const DashBoard = () => {
   const [recentOrders, setRecentOrders] = useState([]);
   const[product,setProduct]=useState([]);
   useEffect(() => {
-    // Fetch orders from your API
+    
     axios
       .get("https://customizedapi.onrender.com/product/get")
       .then((response) => {
