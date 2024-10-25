@@ -5,9 +5,6 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { styled, Typography } from "@mui/material";
 import axios from "axios";
 import { IoMdCall } from "react-icons/io";
-
-
-
 const DashBoard = () => {
   const [pendingOrder,setPendingOrder] =useState(0);
   const[delivred,setDelivred]=useState(0);
