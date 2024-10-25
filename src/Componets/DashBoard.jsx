@@ -5,6 +5,7 @@ import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { styled, Typography } from "@mui/material";
 import axios from "axios";
 import { IoMdCall } from "react-icons/io";
+
 const DashBoard = () => {
   const [pendingOrder,setPendingOrder] =useState(0);
   const[delivred,setDelivred]=useState(0);
@@ -13,7 +14,6 @@ const DashBoard = () => {
   const [recentOrders, setRecentOrders] = useState([]);
   const[product,setProduct]=useState([]);
   useEffect(() => {
-    
     axios
       .get("https://customizedapi.onrender.com/product/get")
       .then((response) => {
@@ -23,7 +23,6 @@ const DashBoard = () => {
       .catch((error) => console.error("Error fetching recent orders:", error));
   }, []);
   useEffect(() => {
-    // Fetch orders from your API
     axios
       .get("https://customizedapi.onrender.com/order/get")
       .then((response) => {
