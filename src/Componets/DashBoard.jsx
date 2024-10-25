@@ -4,6 +4,8 @@ import { LineChart, useDrawingArea } from "@mui/x-charts";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { styled, Typography } from "@mui/material";
 import axios from "axios";
+import { IoMdCall } from "react-icons/io";
+
 
 
 const DashBoard = () => {
@@ -11,6 +13,28 @@ const DashBoard = () => {
   const[delivred,setDelivred]=useState(0);
   const [CancelOrder,setCancelOrder]=useState(0);
   const[confirm,setConfirm]=useState(0);
+  const [recentOrders, setRecentOrders] = useState([]);
+  const[product,setProduct]=useState([]);
+  useEffect(() => {
+    // Fetch orders from your API
+    axios
+      .get("https://customizedapi.onrender.com/product/get")
+      .then((response) => {
+        const products = response.data.data.slice(0,1);
+        setProduct(products);
+      })
+      .catch((error) => console.error("Error fetching recent orders:", error));
+  }, []);
+  useEffect(() => {
+    // Fetch orders from your API
+    axios
+      .get("https://customizedapi.onrender.com/order/get")
+      .then((response) => {
+       const orders = response.data.data.slice(0, 3);
+        setRecentOrders(orders);
+      })
+      .catch((error) => console.error("Error fetching recent orders:", error));
+  }, []);
   const fetchPendingOrder = () => {
     axios.get("https://customizedapi.onrender.com/order/pendingStatusOrder")
       .then((response) => {
@@ -138,7 +162,8 @@ const DashBoard = () => {
               Business Analytics
             </p>
             <div className="grid grid-cols-1 xl:grid-cols-4 sm:grid-cols-2 gap-4">
-              <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
+             <a href="/order/pending-order">
+             <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
                 <div className="flex justify-between">
                   <p className="font-semibold">Pending</p>
                   <img
@@ -149,6 +174,8 @@ const DashBoard = () => {
                 </div>
                 <p className="text-2xl font-bold">{pendingOrder}</p>
               </div>
+             </a>
+              <a href="/order/confirmed-order">
               <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
                 <div className="flex justify-between">
                   <p className="font-semibold">Confirmed</p>
@@ -160,7 +187,9 @@ const DashBoard = () => {
                 </div>
                 <p className="text-2xl font-bold">{confirm}</p>
               </div>
-              <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
+              </a>
+             <a href="/order/cancel-order">
+             <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
                 <div className="flex justify-between">
                   <p className="font-semibold">Canceled</p>
                   <img
@@ -171,7 +200,9 @@ const DashBoard = () => {
                 </div>
                 <p className="text-2xl font-bold">{CancelOrder}</p>
               </div>
-              <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
+             </a>
+            <a href="/order/deliver-order">
+            <div className="bg-white shadow-md rounded-lg p-3 border border-red-600">
                 <div className="flex justify-between">
                   <p className="font-semibold">Delivered</p>
                   <img
@@ -182,6 +213,7 @@ const DashBoard = () => {
                 </div>
                 <p className="text-2xl font-bold">{delivred}</p>
               </div>
+            </a>
             </div>
             
           </div>
@@ -275,13 +307,31 @@ const DashBoard = () => {
               </div>
             </div>
             <div className="md:col-span-1">
-              <div className="card p-4 mb-8 shadow-lg rounded-lg bg-transparent">
-                <div className="flex justify-between">
+              <div className="card  mb-8 shadow-lg rounded-lg bg-transparent ">
+                <div className="flex justify-between bg-gray-200 p-4">
                   <p className="font-bold">Recent Orders</p>
-                  <a href="/">
+                  <a href="/all-order">
                     <p className="text-red-600">View All</p>
                   </a>
+                  
                 </div>
+                <div className="p-4">
+          {recentOrders.map((order) => (
+            <div key={order._id} className="border-b border-gray-200 pb-2 ">
+              <div className="flex justify-between">
+              <p className="font-semibold">{order.fullname}</p>
+              <p className="text-sm text-gray-600 pt-2 flex items-center space-x-1">
+  <IoMdCall />
+  <span>{order.phone}</span>
+</p>
+
+                </div>
+              <p className="font-normal">{order.items[0].productName}</p>
+              <p className="text-sm text-gray-600">Total Price: ₹{order.totalPrice}</p>
+              <p className="text-sm text-gray-500">Order Date: {order.OrderDate}</p>
+            </div>
+          ))}
+        </div>
               </div>
             </div>
           </div>
@@ -290,32 +340,34 @@ const DashBoard = () => {
               <div className="card p-4 mb-8 shadow-lg rounded-lg bg-transparent">
                 <div className="flex justify-between">
                   <p className="font-bold">Top Selling Products</p>
-                  <a href="/">
+                  <a href="/product-list">
                     <p className="text-red-600">View All</p>
                   </a>
                 </div>
+                <div className="p-4">
+          {product.map((product) => (
+            <div key={product._id} className=" border-gray-200 pb-2 ">
+              <div className="flex justify-start items-center gap-2">
+              <img src={product.photo} alt="product" className="h-12 w-12"/>
+              <p className="font-semibold">{product.productName}</p>
+             </div>
+            
+            </div>
+          ))}
+        </div>
               </div>
             </div>
             <div className="md:col-span-1">
               <div className="card p-4 mb-8 shadow-lg rounded-lg bg-transparent">
                 <div className="flex justify-between">
                   <p className="font-bold">Most Rated Products</p>
-                  <a href="/">
+                  <a href="/product-list">
                     <p className="text-red-600">View All</p>
                   </a>
                 </div>
               </div>
             </div>
-            <div className="md:col-span-1">
-              <div className="card p-4 mb-8 shadow-lg rounded-lg bg-transparent">
-                <div className="flex justify-between">
-                  <p className="font-bold">Top Customer</p>
-                  <a href="/">
-                    <p className="text-red-600">View All</p>
-                  </a>
-                </div>
-              </div>
-            </div>
+           
           </div>
         </div>
       </div>
