@@ -37,12 +37,12 @@ const DashBoard = () => {
         if (response.data && response.data.data) {
           setPendingOrder(response.data.data.length);
         } else {
-          setPendingOrder(0); 
+          setPendingOrder(0); // Set to 0 if data is not in expected format
         }
       })
       .catch((error) => {
         console.error("There was an error fetching pending orders!", error);
-        setPendingOrder(0); 
+        setPendingOrder(0); // Set to 0 in case of error
       });
   };
   useEffect(() => {
@@ -54,12 +54,12 @@ const DashBoard = () => {
         if (response.data && response.data.data) {
           setDelivred(response.data.data.length);
         } else {
-          setDelivred(0); 
+          setDelivred(0); // Set to 0 if data is not in expected format
         }
       })
       .catch((error) => {
         console.error("There was an error fetching pending orders!", error);
-        setPendingOrder(0);
+        setPendingOrder(0); // Set to 0 in case of error
       });
   };
   useEffect(() => {
@@ -71,12 +71,12 @@ const DashBoard = () => {
         if (response.data && response.data.data) {
           setConfirm(response.data.data.length);
         } else {
-          setConfirm(0); 
+          setConfirm(0); // Set to 0 if data is not in expected format
         }
       })
       .catch((error) => {
         console.error("There was an error fetching pending orders!", error);
-        setConfirm(0); 
+        setConfirm(0); // Set to 0 in case of error
       });
   };
   useEffect(() => {
@@ -90,12 +90,12 @@ const DashBoard = () => {
         if (response.data && response.data.data) {
           setCancelOrder(response.data.data.length);
         } else {
-          setCancelOrder(0); 
+          setCancelOrder(0); // Set to 0 if data is not in expected format
         }
       })
       .catch((error) => {
         console.error("There was an error fetching pending orders!", error);
-        setCancelOrder(0); 
+        setCancelOrder(0); // Set to 0 in case of error
       });
   };
   useEffect(() => {
