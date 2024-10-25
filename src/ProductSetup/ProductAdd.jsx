@@ -17,6 +17,7 @@ const ProductAdd = () => {
   const [formData, setFormData] = useState({
     productName: '',
     price: '',
+    discountPrice:'',
     description: '',
     category: '',
     subcategoryName:"",
@@ -47,6 +48,7 @@ const ProductAdd = () => {
       setFormData({
         productName: product.productName,
         price: product.price,
+        discountPrice:product.discountPrice,
         description: product.description,
         category: product.category,
         subCategoryName: product.subCategoryName || '',
@@ -109,6 +111,7 @@ const ProductAdd = () => {
     const data = new FormData();
     data.append('productName', formData.productName);
     data.append('price', formData.price);
+    data.append('discountPrice',formData.discountPrice);
     data.append('description', formData.description);
     data.append('category', formData.category);
     data.append("subCategoryName",formData.subCategoryName);
@@ -138,6 +141,7 @@ const ProductAdd = () => {
     setFormData({
       productName: '',
       price: '',
+      discountPrice:'',
       description: '',
       category: '',
       subCategoryName:"",
@@ -235,6 +239,22 @@ const ProductAdd = () => {
                 onChange={handleChange}
                 className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                 placeholder="Price"
+                required
+              />
+               <label
+                htmlFor="discountPrice"
+                className="pt-5 block mb-2 text-base font-medium text-gray-900  text-left"
+              >
+                Discount Price
+              </label>
+              <input
+                type="text"
+                id="discountPrice"
+                name="discountPrice"
+                value={formData.discountPrice}
+                onChange={handleChange}
+                className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                placeholder="discountPrice"
                 required
               />
               <label
